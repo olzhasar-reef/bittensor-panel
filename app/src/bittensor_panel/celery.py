@@ -1,8 +1,11 @@
 import logging
 import os
 
-from celery import Celeryfrom django.conf import settings
+from celery import Celery
+from celery.signals import setup_logging
+from django.conf import settings
 from django_structlog.celery.steps import DjangoStructLogInitStep
+
 from .settings import configure_structlog
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bittensor_panel.settings")

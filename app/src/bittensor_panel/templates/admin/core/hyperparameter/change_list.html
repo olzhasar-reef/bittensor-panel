@@ -1,0 +1,10 @@
+{% extends "admin/change_list.html" %} {% load i18n %} 
+{% block object-tools-items %}
+    {{ block.super }}
+	<div>
+		<form action="{% url 'admin:refresh_hyperparams' %}" method="POST">
+			{% csrf_token %}
+			<button type="submit" onclick="return confirm('Are you sure want to refresh hyperparams from subtensor?\nExisting data will be overwritten')">Refresh from subtensor</button>
+        </form>
+	</div>
+{% endblock %}

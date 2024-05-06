@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "django_probes",
     "django_structlog",
     "constance",
+    "bittensor_panel.users",
     "bittensor_panel.core",
 ]
 
@@ -155,6 +156,8 @@ elif env("DATABASE_URL"):
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL = "users.User"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -194,7 +197,7 @@ else:
     SECURE_SSL_REDIRECT = False
 
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
-CONSTANCE_CONFIG = {
+CONSTANCE_CONFIG: dict[str, tuple[str, str, str]] = {
     # "PARAMETER": (default-value, "Help text", type),
 }
 
@@ -305,3 +308,9 @@ if SENTRY_DSN := env("SENTRY_DSN", default=""):
         ],
     )
     ignore_logger("django.security.DisallowedHost")
+
+
+SUBTENSOR_ADDRESS = env.str("SUBTENSOR_ADDRESS", default="local")
+SUBNET_UID = env.int("SUBNET_UID")
+WALLET_NAME = env.str("WALLET_NAME")
+WALLET_PATH = env.path("WALLET_PATH")
